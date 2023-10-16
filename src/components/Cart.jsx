@@ -3,24 +3,41 @@ import Button from "react-bootstrap/Button";
 import { usePizzaContext } from "../context/PizzaContext";
 
 const Cart = () => {
-  const { dataCart } = usePizzaContext();
+  const { dataCart, addToCart, removeFromCart } = usePizzaContext();
+
+  const handleAddToCart = (pizza) => {
+    addToCart(pizza); // Llama a la función para agregar al carrito
+  };
+
+  const handleRemoveFromCart = (pizza) => {
+    removeFromCart(pizza); // Llama a la función para eliminar del carrito
+  };
+
+  // Calcular el total sumando los precios de las pizzas en el carrito
+  const total = dataCart.reduce((acc, pizza) => acc + pizza.price, 0);
 
   return (
     <div className="const-carrito">
       <div className="div1-carrito">
         <p>Detalles del pedido: </p>
         {dataCart.map((pizza) => (
-          <div className="div2-carrito">
-            <img src="" alt="" />
+          <div key={pizza.id} className="div2-carrito">
+            <img src={pizza.img} alt={pizza.name} />
             <p>{pizza.name}</p>
             {`$${pizza.price}`}
-            <Button variant="danger">-</Button>
+            <Button
+              variant="danger"
+              onClick={() => handleRemoveFromCart(pizza)}
+            >
+              -
+            </Button>
             <p>6</p>
-            <Button variant="souccer">+</Button>
+            <Button variant="success" onClick={() => handleAddToCart(pizza)}>
+              +
+            </Button>
           </div>
         ))}
-
-        <h3>Total: $134690 </h3>
+        <h3>Total: ${total}</h3> {/* Mostrar el total actualizado */}
         <Button variant="primary">Ir a Pagar</Button>
       </div>
     </div>

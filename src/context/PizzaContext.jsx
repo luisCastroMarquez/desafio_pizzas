@@ -15,8 +15,14 @@ export const PizzaProvider = ({ children }) => {
     setDataCart((prevCart) => [...prevCart, pizza]);
   };
 
+  const removeFromCart = (pizza) => {
+    setDataCart((prevCart) => prevCart.filter((item) => item.id !== pizza.id));
+  };
+
   return (
-    <PizzaContext.Provider value={{ dataPizzas, dataCart, addToCart }}>
+    <PizzaContext.Provider
+      value={{ dataPizzas, dataCart, addToCart, removeFromCart }}
+    >
       {children}
     </PizzaContext.Provider>
   );

@@ -48,11 +48,17 @@
 }
 
 .cont-home {
+  width: 100%;
+  display: flex;
   flex-direction: column;
-  background-color: dimgray;
+  justify-content: center;
+  background-color: #fff;
+  margin: 10px 0 0 0;
+  gap: 10px;
 }
 
 .div1-cont-home {
+  width: 100%;
   background-image: url("../src/assets/images/portada.jpg");
   display: flex;
   flex-direction: column;
@@ -62,7 +68,6 @@
 }
 
 .div2-cont-home {
-  margin: 20px;
   display: flex;
   justify-content: center;
   background-color: #fff;
