@@ -3,42 +3,80 @@ import Button from "react-bootstrap/Button";
 import { usePizzaContext } from "../context/PizzaContext";
 
 const Cart = () => {
-  const { dataCart, addToCart, removeFromCart } = usePizzaContext();
+  const { dataCart, pizzaQuantities, totalCart, addToCart, removeFromCart } =
+    usePizzaContext();
 
   const handleAddToCart = (pizza) => {
-    addToCart(pizza); // Llama a la función para agregar al carrito
+    addToCart(pizza);
   };
 
   const handleRemoveFromCart = (pizza) => {
-    removeFromCart(pizza); // Llama a la función para eliminar del carrito
+    removeFromCart(pizza);
   };
 
-  // Calcular el total sumando los precios de las pizzas en el carrito
-  const total = dataCart.reduce((acc, pizza) => acc + pizza.price, 0);
+  const groupPizzasByType = (cart) => {
+    const groupedPizzas = {};
+    cart.forEach((pizza) => {
+      if (groupedPizzas[pizza.id]) {
+        groupedPizzas[pizza.id].quantity += 1;
+      } else {
+        groupedPizzas[pizza.id] = {
+          pizza,
+          quantity: 1,
+        };
+      }
+    });
+    return Object.values(groupedPizzas);
+  };
+
+  // Función para formatear el valor a pesos chilenos
+  const formatToChileanPesos = (value) => {
+    return value.toLocaleString("es-CL", {
+      style: "currency",
+      currency: "CLP",
+    });
+  };
+
+  const groupedPizzas = groupPizzasByType(dataCart);
 
   return (
     <div className="const-carrito">
+      <p>Detalles del pedido: </p>
       <div className="div1-carrito">
-        <p>Detalles del pedido: </p>
-        {dataCart.map((pizza) => (
-          <div key={pizza.id} className="div2-carrito">
-            <img src={pizza.img} alt={pizza.name} />
-            <p>{pizza.name}</p>
-            {`$${pizza.price}`}
-            <Button
-              variant="danger"
-              onClick={() => handleRemoveFromCart(pizza)}
-            >
-              -
-            </Button>
-            <p>6</p>
-            <Button variant="success" onClick={() => handleAddToCart(pizza)}>
-              +
-            </Button>
+        {groupedPizzas.map((group) => (
+          <div key={group.pizza.id} className="div2-carrito">
+            <img
+              src={group.pizza.img}
+              alt=""
+              style={{ width: "80px", height: "50px", alignItems: "center" }}
+            />
+            <p>{group.pizza.name}</p>
+            <div className="div3-carrito">
+              {formatToChileanPesos(
+                group.pizza.price * pizzaQuantities[group.pizza.id]
+              )}
+              <Button
+                variant="danger"
+                onClick={() => handleRemoveFromCart(group.pizza)}
+              >
+                -
+              </Button>
+              <p>{pizzaQuantities[group.pizza.id] || 0}</p>
+              <Button
+                variant="success"
+                onClick={() => handleAddToCart(group.pizza)}
+              >
+                +
+              </Button>
+            </div>
           </div>
         ))}
-        <h3>Total: ${total}</h3> {/* Mostrar el total actualizado */}
-        <Button variant="primary">Ir a Pagar</Button>
+        <div className="div4-carrito">
+          <h3>Total: {formatToChileanPesos(totalCart)}</h3>
+          <Button variant="primary" size="lg">
+            Ir a Pagar
+          </Button>
+        </div>
       </div>
     </div>
   );

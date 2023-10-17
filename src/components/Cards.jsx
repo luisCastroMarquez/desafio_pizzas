@@ -13,14 +13,17 @@ const CardPizza = ({ dataPizza }) => {
     addToCart(pizza);
   };
 
+  // Función para formatear el valor a pesos chilenos
+  const formatToChileanPesos = (value) => {
+    return value.toLocaleString("es-CL", {
+      style: "currency",
+      currency: "CLP",
+    });
+  };
+
   return (
-    <Card style={{ width: "250px", alignItems: "center" }}>
-      <Card.Img
-        width="250px"
-        height="120px"
-        variant="top"
-        src={dataPizza.img}
-      />
+    <Card className="cardBg" bg="light" expand="lg">
+      <Card.Img height="160px" variant="top" src={dataPizza.img} />
       <Card.Body>
         <Card.Title>{dataPizza.name}</Card.Title>
         <Card.Text>Ingredientes:</Card.Text>
@@ -32,7 +35,7 @@ const CardPizza = ({ dataPizza }) => {
           ))}
         </Card.Text>
         <Card.Body>
-          <Card.Text>{`$ ${dataPizza.price}`}</Card.Text>
+          <Card.Text>{formatToChileanPesos(dataPizza.price)}</Card.Text>
           <Button variant="primary" onClick={redirectToDetail}>
             Ver Más <FaEye />
           </Button>
