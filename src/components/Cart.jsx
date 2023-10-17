@@ -41,7 +41,9 @@ const Cart = () => {
 
   return (
     <div className="const-carrito">
-      <p>Detalles del pedido: </p>
+      <p>
+        <strong>Detalles del pedido: </strong>
+      </p>
       <div className="div1-carrito">
         {groupedPizzas.map((group) => (
           <div key={group.pizza.id} className="div2-carrito">
@@ -56,6 +58,7 @@ const Cart = () => {
                 group.pizza.price * pizzaQuantities[group.pizza.id]
               )}
               <Button
+                className="btnVer"
                 variant="danger"
                 onClick={() => handleRemoveFromCart(group.pizza)}
               >
@@ -63,6 +66,7 @@ const Cart = () => {
               </Button>
               <p>{pizzaQuantities[group.pizza.id] || 0}</p>
               <Button
+                className="btnCarro"
                 variant="success"
                 onClick={() => handleAddToCart(group.pizza)}
               >
@@ -73,7 +77,7 @@ const Cart = () => {
         ))}
         <div className="div4-carrito">
           <h3>Total: {formatToChileanPesos(totalCart)}</h3>
-          <Button variant="primary" size="lg">
+          <Button className="btnPago" variant="primary" size="lg">
             Ir a Pagar
           </Button>
         </div>

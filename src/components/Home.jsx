@@ -8,9 +8,9 @@ export const Home = () => {
     <div className="cont-home">
       <div className="div1-cont-home">
         <p>
-          <h2>¡Pizzería Mamma Mia!</h2>
+          <h1>¡Pizzería Mamma Mia!</h1>
         </p>
-        <h4>¡Tenemos las mejores piazzas que podras encontrar!</h4>
+        <h2>¡Tenemos las mejores piazzas que podras encontrar!</h2>
       </div>
       <div className="div2-cont-home">
         {dataPizzas.map((dataPizza) => (

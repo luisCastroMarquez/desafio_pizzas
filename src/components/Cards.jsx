@@ -22,11 +22,15 @@ const CardPizza = ({ dataPizza }) => {
   };
 
   return (
-    <Card className="cardBg" bg="light" expand="lg">
-      <Card.Img height="160px" variant="top" src={dataPizza.img} />
+    <Card className="cardBg" expand="lg">
+      <Card.Img className="cardImg" variant="top" src={dataPizza.img} />
       <Card.Body>
-        <Card.Title>{dataPizza.name}</Card.Title>
-        <Card.Text>Ingredientes:</Card.Text>
+        <Card.Title>
+          <strong>{dataPizza.name}</strong>
+        </Card.Title>
+        <Card.Text>
+          <strong>Ingredientes:</strong>
+        </Card.Text>
         <Card.Text>
           {dataPizza.ingredients.map((ingredient) => (
             <div>
@@ -36,11 +40,11 @@ const CardPizza = ({ dataPizza }) => {
         </Card.Text>
         <Card.Body>
           <Card.Text>{formatToChileanPesos(dataPizza.price)}</Card.Text>
-          <Button variant="primary" onClick={redirectToDetail}>
+          <Button className="btnVer" onClick={redirectToDetail}>
             Ver Más <FaEye />
           </Button>
           <Button
-            variant="secondary"
+            className="btnCarro"
             onClick={() => handleAddToCartClick(dataPizza)}
           >
             Añadir <FaCartPlus />
