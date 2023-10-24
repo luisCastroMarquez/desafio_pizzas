@@ -31,9 +31,12 @@ const CardPizza = ({ dataPizza }) => {
           <strong>Ingredientes:</strong>
         </Card.Text>
         <Card.Text>
-          {dataPizza.ingredients.map((ingredient) => (
-            <div>
-              <FaPizzaSlice /> {ingredient}
+          {dataPizza.ingredients.map((ingredient, index) => (
+            <div key={index}>
+              <span>
+                <FaPizzaSlice />
+              </span>{" "}
+              {ingredient}
             </div>
           ))}
         </Card.Text>

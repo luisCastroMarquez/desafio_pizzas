@@ -95,6 +95,10 @@
   margin: 3% 0;
 }
 
+.div1-cont-home p {
+  font-size: 150%;
+}
+
 .div2-cont-home {
   display: flex;
   flex-wrap: wrap;

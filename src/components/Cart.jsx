@@ -1,10 +1,13 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { usePizzaContext } from "../context/PizzaContext";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { dataCart, pizzaQuantities, totalCart, addToCart, removeFromCart } =
     usePizzaContext();
+
+  const navigate = useNavigate();
 
   const handleAddToCart = (pizza) => {
     addToCart(pizza);
@@ -27,6 +30,21 @@ const Cart = () => {
       }
     });
     return Object.values(groupedPizzas);
+  };
+
+  const handleBtnPago = () => {
+    if (dataCart.length > 0) {
+      // Realizar aquí cualquier lógica de cancelación que necesites
+
+      // Mostrar un mensaje en la consola
+      alert("¡Su pedido fue cancelado exitosamente!");
+
+      // Redirigir al usuario a la vista principal
+      navigate("/");
+    } else {
+      // Si el carrito está vacío, muestra un mensaje de que el carrito está vacío
+      alert("El carrito está vacío");
+    }
   };
 
   // Función para formatear el valor a pesos chilenos
@@ -77,7 +95,12 @@ const Cart = () => {
         ))}
         <div className="div4-carrito">
           <h3>Total: {formatToChileanPesos(totalCart)}</h3>
-          <Button className="btnPago" variant="primary" size="lg">
+          <Button
+            className="btnPago"
+            onClick={handleBtnPago}
+            variant="primary"
+            size="lg"
+          >
             Ir a Pagar
           </Button>
         </div>
