@@ -6,14 +6,19 @@ import { usePizzaContext } from "../context/PizzaContext";
 
 const PizzaDetail = () => {
   const { id } = useParams();
-  const { dataPizzas } = usePizzaContext();
+  const { dataPizzas, addToCart } = usePizzaContext(); // Importa addToCart Desde el contexto
   const [dataPizza, setDataPizza] = useState({});
 
   useEffect(() => {
     const data = dataPizzas.find((pizza) => pizza.id === id);
 
     setDataPizza(data);
-  }, []);
+  }, [dataPizzas, id]);
+
+  // Agrega al carro la pizza
+  const handleAddToCartClick = (pizza) => {
+    addToCart(pizza);
+  };
 
   return (
     <Card

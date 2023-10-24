@@ -1,5 +1,4 @@
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import { Card, Button } from "react-bootstrap";
 import { FaCartPlus, FaEye, FaPizzaSlice } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { usePizzaContext } from "../context/PizzaContext";
